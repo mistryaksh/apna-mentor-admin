@@ -89,10 +89,13 @@ export const ManageBlogPage = () => {
                               placeholder="Search blog name"
                          />
                          <AppButton primary>Search</AppButton>
+                         <AppButton onClick={() => navigate("/blogs/new")} primary>
+                              Upload new blog
+                         </AppButton>
                     </div>
                </div>
 
-               <div className="grid grid-cols-12 mt-20 gap-10">
+               <div className="grid grid-cols-12 my-20 gap-10">
                     {!isBlogLoading &&
                          !isDeleteLoading &&
                          !isActivationLoading &&

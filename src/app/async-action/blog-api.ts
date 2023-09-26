@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../../utils";
-import { IBlogProps } from "../../interface";
+import { IBlogProps, INewBlogProps } from "../../interface";
 
 const blogApi = createApi({
      reducerPath: "blogApi",
@@ -39,7 +39,7 @@ const blogApi = createApi({
                invalidatesTags: ["blogs"],
           }),
           CreateNewBlog: mutation({
-               query: ({ active, body, image, label }: IBlogProps) => {
+               query: ({ active, body, image, label }: INewBlogProps) => {
                     return {
                          url: "/blog",
                          method: "POST",

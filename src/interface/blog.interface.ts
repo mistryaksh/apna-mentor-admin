@@ -10,3 +10,10 @@ export interface IBlogProps {
      createdAt?: string;
      updatedAt?: string;
 }
+
+export interface INewBlogProps {
+     label: string;
+     image: string;
+     body?: string;
+     active: boolean;
+}

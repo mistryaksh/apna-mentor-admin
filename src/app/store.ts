@@ -1,7 +1,7 @@
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 
 import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
-import { AuthReducer, DoctorsReducer, LayoutReducer } from "../features";
+import { AuthReducer, BlogStateReducer, DoctorsReducer, LayoutReducer } from "../features";
 import {
      BlogMiddleware,
      BlogReducer,
@@ -14,9 +14,12 @@ import {
 } from "./async-action";
 
 const rootState = combineReducers({
+     // NORMAL STATES
      doctors: DoctorsReducer,
      auth: AuthReducer,
      layout: LayoutReducer,
+     blog: BlogStateReducer,
+     // API CALLS
      blogApi: BlogReducer,
      doctorApi: DoctorReducer,
      userApi: UsersReducer,

@@ -3,7 +3,15 @@ import { Route, Routes } from "react-router-dom";
 import { ProtectedPages } from "../../component";
 import { DashboardPage } from "../dashboard";
 import { LoginPage } from "../accounts";
-import { DoctorsPage, ManageBlogPage, NewDoctorFormPage, SpecificBlogPage, TopDoctorPage, UsersPage } from "../website";
+import {
+     DoctorsPage,
+     ManageBlogPage,
+     NewBlogPage,
+     NewDoctorFormPage,
+     SpecificBlogPage,
+     TopDoctorPage,
+     UsersPage,
+} from "../website";
 
 export const AppRouters = () => {
      return (
@@ -20,6 +28,7 @@ export const AppRouters = () => {
                     </Route>
                     <Route path="blogs">
                          <Route element={<ManageBlogPage />} path="manage" />
+                         <Route element={<NewBlogPage />} path="new" />
                          <Route element={<SpecificBlogPage />} path="manage/:id" />
                     </Route>
                </Route>

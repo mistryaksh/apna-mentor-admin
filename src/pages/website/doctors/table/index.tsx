@@ -166,7 +166,7 @@ export const DoctorsPage = () => {
                                                   <div className="font-poppins capitalize">
                                                        <div className="flex items-center  gap-3 font-poppins lowercase text-gray-500">
                                                             <AiOutlineMail size={16} />
-                                                            <span className=" capitalize">{row.contact.mobile}</span>
+                                                            <span className=" capitalize">{row.contact.email}</span>
                                                        </div>
                                                   </div>
                                              ),

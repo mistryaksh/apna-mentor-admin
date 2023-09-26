@@ -27,14 +27,14 @@ export const SpecificBlogPage = () => {
                               </button>
                          </div>
                     </div>
-                    <div className="xl:w-[70%] mx-auto">
+                    <div className="xl:w-[70%] mx-auto mb-20">
                          <img src={data?.data.image} alt={data?.data.label} />
                          <h6 className="text-3xl font-poppins my-10">{data?.data.label}</h6>
                          <p className="text-gray-500 capitalize">
                               {moment(data?.data.createdAt).format("MMMM Do YYYY")} | Uploaded By{" "}
                               {data?.data?.adminId?.name?.firstName} {data?.data?.adminId?.name?.lastName}
                          </p>
-                         <p dangerouslySetInnerHTML={{ __html: data?.data.body }} />
+                         <p dangerouslySetInnerHTML={{ __html: data?.data.body }} className="whitespace-pre-wrap" />
                     </div>
                </Layout>
           );
