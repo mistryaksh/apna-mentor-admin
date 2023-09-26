@@ -1,17 +1,17 @@
 import { boolean, object, string } from "yup";
 
 export const NewDoctorInitial = {
-     password: "abc123",
-     username: "karl1234",
-     address: "5th main streen, UK, Bharat-000000",
-     email: "karl123",
-     mobile: "1234465674",
-     firstName: "karl",
-     lastName: "smith",
-     gender: "not_to_say",
-     hospitalAddress: "9th main streen, UK, Bharat-000000",
-     hospitalName: "medicare multi speciality hostpital",
-     specialization: ["Orthopedics", "Dermatology", "Pediatrics"],
+     password: "",
+     username: "",
+     address: "",
+     email: "",
+     mobile: "",
+     firstName: "",
+     lastName: "",
+     gender: "",
+     hospitalAddress: "",
+     hospitalName: "",
+     specialization: [],
 };
 
 export const NewDoctorValidation = object().shape({

@@ -13,12 +13,15 @@ export const UsersPage = () => {
      const { data, isError, error, isLoading } = useGetAllUsersQuery();
      const [BlockStatus, { isError: isBlockError, error: blockError, isLoading: isBlockLoading }] =
           useUpdateUserBlockStatusMutation();
+     console.log(data);
 
      useEffect(() => {
           if (isError) {
                if ((error as any).data.message) {
+                    console.log((error as any).data.message);
                     toast.error((error as any).data.message);
                } else {
+                    console.log((error as any).message);
                     toast.error((error as any).message);
                }
           }

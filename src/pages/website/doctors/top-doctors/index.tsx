@@ -151,7 +151,7 @@ export const TopDoctorPage = () => {
                     </div>
                )}
                {!AllTopDoctor?.data.length && (
-                    <div className="h-[600px] border flex justify-center items-center capitalize text-gray-500 rounded-lg flex-col gap-5">
+                    <div className="h-[600px] flex justify-center items-center capitalize text-gray-500 rounded-lg flex-col gap-5">
                          No doctors are selected for top list, Start Adding By This Button
                          <AppButton onClick={() => dispatch(handleModel())} primary>
                               Start adding

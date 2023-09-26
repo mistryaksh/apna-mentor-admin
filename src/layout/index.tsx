@@ -39,12 +39,12 @@ export const Layout: FC<ILayoutProps> = ({ pageTitle, children }) => {
           if (isSuccess) {
                toast.success("Logging Out");
                dispatch(AppLogOut());
-               navigate("/dashboard", { replace: true });
+               navigate("/", { replace: true });
           }
      }, [isError, error, isSuccess, dispatch, navigate]);
 
      const LogoutUser = useCallback(async () => {
-          await Logout(localStorage.getItem("admin_token"));
+          await Logout(0);
      }, [Logout]);
 
      return (

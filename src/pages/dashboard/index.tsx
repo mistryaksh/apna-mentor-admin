@@ -42,7 +42,7 @@ export const DashboardPage = () => {
                     </div>
                </div>
                <hr className="my-5" />
-               <div className="grid grid-cols-12 gap-5">
+               <div className="grid grid-cols-12 gap-5 mb-20">
                     <div className="col-span-12 xl:col-span-6 border-brandPrimary-500 rounded-md md:col-span-6  lg:col-span-6 sm:col-span-12">
                          <div className="border p-3">
                               <div className="flex items-center gap-3">
