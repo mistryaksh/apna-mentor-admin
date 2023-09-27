@@ -288,9 +288,9 @@ export const NewDoctorFormPage = () => {
                                         </div>
                                    </div>
                                    <div className="mt-5 flex justify-end gap-3">
-                                        {/* <AppButton danger type="button" onClick={() => resetForm()}>
-                                                  Clear
-                                             </AppButton> */}
+                                        <AppButton danger type="button" onClick={() => resetForm()}>
+                                             Clear
+                                        </AppButton>
                                         <AppButton loading={isLoading} type="submit" primary>
                                              Submit
                                         </AppButton>

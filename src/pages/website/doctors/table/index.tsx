@@ -124,7 +124,7 @@ export const DoctorsPage = () => {
                                              ),
                                         },
                                         {
-                                             width: "150px",
+                                             width: "250px",
                                              id: "username",
                                              sortable: false,
                                              name: "Username",

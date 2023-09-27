@@ -107,20 +107,20 @@ export const TopDoctorPage = () => {
                )}
                {!isLoading && !isUploadLoading && !isDeleteLoading && (
                     <div className="flex justify-center">
-                         <div className="w-[60%] flex flex-col gap-3">
+                         <div className="w-full flex flex-col gap-3">
                               {AllTopDoctor?.data.map(({ active, doctorId, _id }) => (
                                    <div key={_id} className="flex p-3 rounded-lg border justify-between items-center">
                                         <div>
                                              <p className="text-xl font-semibold font-poppins capitalize">
-                                                  {doctorId.name.firstName} {doctorId.name.lastName}
+                                                  {doctorId?.name?.firstName} {doctorId?.name?.lastName}
                                              </p>
                                              <p className="flex gap-3 items-center text-sm">
                                                   <FiPhone />
-                                                  {doctorId.contact.mobile}
+                                                  {doctorId?.contact?.mobile}
                                              </p>
                                              <p className="flex gap-3 items-center text-sm">
                                                   <AiOutlineMail />
-                                                  {doctorId.contact.email}
+                                                  {doctorId?.contact?.email}
                                              </p>
                                         </div>
                                         <div className="flex flex-col gap-3 items-center">

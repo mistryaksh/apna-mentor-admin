@@ -107,7 +107,7 @@ export const ManageBlogPage = () => {
                                    <img src={image} alt={label} className="w-full" />
                                    <div className="px-3 py-2">
                                         <Link to={`/blogs/manage/${_id}`}>
-                                             <label htmlFor={label} className="line-clamp-2 text-xl capitalize">
+                                             <label htmlFor={label} className="line-clamp-1 text-xl capitalize">
                                                   {label}
                                              </label>
                                         </Link>
