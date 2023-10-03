@@ -1,7 +1,7 @@
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 
 import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
-import { AuthReducer, BlogStateReducer, DoctorsReducer, LayoutReducer } from "../features";
+import { AuthReducer, BlogStateReducer, DoctorsReducer, LayoutReducer, PaymentOptionReducer } from "../features";
 import {
      BlogMiddleware,
      BlogReducer,
@@ -11,6 +11,8 @@ import {
      AuthenticationReducer,
      UsersReducer,
      UserMiddleware,
+     PlanOptionMiddleware,
+     PlanOptionReducer,
 } from "./async-action";
 
 const rootState = combineReducers({
@@ -19,14 +21,22 @@ const rootState = combineReducers({
      auth: AuthReducer,
      layout: LayoutReducer,
      blog: BlogStateReducer,
+     paymentOptions: PaymentOptionReducer,
      // API CALLS
      blogApi: BlogReducer,
      doctorApi: DoctorReducer,
      userApi: UsersReducer,
      authApi: AuthenticationReducer,
+     planOptionApi: PlanOptionReducer,
 });
 
-const ApiMiddleware = [AuthenticationMiddleware, DoctorMiddleware, BlogMiddleware, UserMiddleware];
+const ApiMiddleware = [
+     AuthenticationMiddleware,
+     DoctorMiddleware,
+     BlogMiddleware,
+     UserMiddleware,
+     PlanOptionMiddleware,
+];
 
 export const store = configureStore({
      reducer: rootState,

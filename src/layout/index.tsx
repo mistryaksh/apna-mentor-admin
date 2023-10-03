@@ -79,26 +79,19 @@ export const Layout: FC<ILayoutProps> = ({ pageTitle, children }) => {
                                         label="support system"
                                         nav={[
                                              { Icon: AiOutlineIssuesClose, label: "issues", path: "/users" },
-                                             { Icon: MdPayment, label: "payments", path: "/payment" },
+                                             { Icon: MdPayment, label: "payments", path: "/payment/margins" },
                                              { Icon: AiOutlineUserSwitch, label: "accounts", path: "/accounts" },
                                              { Icon: AiOutlineMore, label: "other", path: "/other" },
                                         ]}
                                    />
                                    <NavGroup
                                         label="settings"
-                                        nav={[
-                                             {
-                                                  Icon: AiOutlineIssuesClose,
-                                                  label: "payment gateway",
-                                                  path: "/payment/gateway",
-                                             },
-                                             { Icon: MdPayment, label: "payments", path: "/payment" },
-                                        ]}
+                                        nav={[{ Icon: MdPayment, label: "payments", path: "/payment" }]}
                                    />
                               </div>
                          </div>
                          <div className="py-5">
-                              <AppButton onClick={LogoutUser} loading={isLoading} type="button" fullWidth danger>
+                              <AppButton onClick={LogoutUser} loading={!isLoading} type="button" fullWidth danger>
                                    Logout
                               </AppButton>
                          </div>

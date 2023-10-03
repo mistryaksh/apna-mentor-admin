@@ -11,6 +11,7 @@ import "react-quill/dist/quill.snow.css";
 import { useCreateNewBlogMutation } from "../../../../app/async-action";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
 
 export const NewBlogPage = () => {
      const dispatch = useAppDispatch();
@@ -41,9 +42,22 @@ export const NewBlogPage = () => {
      return (
           <Layout pageTitle="Write blogs for user">
                <div className="py-10 mt-20">
-                    <h1 className="text-3xl font-semibold">
-                         Enter details to upload <span className="text-primary-500 underline">blog content</span>
-                    </h1>
+                    <div className="py-5">
+                         <div className="flex gap-5 items-center">
+                              <button
+                                   onClick={() => navigate("/doctors/manage", { replace: true })}
+                                   type="submit"
+                                   className="flex gap-3"
+                              >
+                                   <IoArrowBack size={26} />
+                                   <p className="capitalize text-lg">back</p>
+                              </button>
+                              <h1 className="text-3xl font-semibold capitalize">
+                                   Enter details to upload{" "}
+                                   <span className="text-primary-500 underline">doctor profile</span>
+                              </h1>
+                         </div>
+                    </div>
                     <div className="my-20">
                          <Formik
                               onSubmit={handleSubmit}

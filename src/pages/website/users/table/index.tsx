@@ -66,14 +66,12 @@ export const UsersPage = () => {
                          <div>
                               <DataTable
                                    paginationPerPage={10}
-                                   paginationServer
                                    paginationTotalRows={data?.data.length}
                                    selectableRows
                                    className="font-poppins"
                                    highlightOnHover
                                    keyField="row._id"
                                    pagination
-                                   defaultSortFieldId={1}
                                    columns={[
                                         {
                                              id: "#",

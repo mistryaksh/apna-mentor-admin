@@ -8,6 +8,7 @@ import {
      ManageBlogPage,
      NewBlogPage,
      NewDoctorFormPage,
+     PaymentMargins,
      SpecificBlogPage,
      TopDoctorPage,
      UsersPage,
@@ -30,6 +31,9 @@ export const AppRouters = () => {
                          <Route element={<ManageBlogPage />} path="manage" />
                          <Route element={<NewBlogPage />} path="new" />
                          <Route element={<SpecificBlogPage />} path="manage/:id" />
+                    </Route>
+                    <Route path="payment">
+                         <Route element={<PaymentMargins />} path="margins" />
                     </Route>
                </Route>
                <Route path="/" element={<LoginPage />} />
