@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cd94eed7.css",
+    "main.js": "/static/js/main.1aa4d170.js",
+    "static/media/apna-mentor.jpeg": "/static/media/apna-mentor.ca76a152485af385fe48.jpeg",
+    "index.html": "/index.html",
+    "main.cd94eed7.css.map": "/static/css/main.cd94eed7.css.map",
+    "main.1aa4d170.js.map": "/static/js/main.1aa4d170.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd94eed7.css",
+    "static/js/main.1aa4d170.js"
+  ]
+}
