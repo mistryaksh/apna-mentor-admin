@@ -1,21 +1,15 @@
-export interface UserProps {
-     name: {
-          firstName: string;
-          lastName: string;
-     };
+export interface IUserProps {
+     _id?: string;
+     name: { firstName: string; lastName: string };
      email: string;
      mobile: string;
      password: string;
+     acType: UserAccountType;
      verified: boolean;
-     online: boolean;
      block: boolean;
-     role: "admin" | "user" | "doctor";
-     _id?: string;
+     online: boolean;
      createdAt?: string;
      updatedAt?: string;
 }
 
-export interface ISignInProps {
-     mobile: string;
-     password: string;
-}
+export type UserAccountType = "USER" | "ADMIN";

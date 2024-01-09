@@ -10,7 +10,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 
 export const AppInput: FC<Props> = ({ label, error, touched, ...rest }) => {
      return (
-          <div className="flex flex-col gap-0 w-full">
+          <div className="flex flex-col gap-1 w-full">
                <label htmlFor={label} className="text-poppins text-gray-500 capitalize text-sm">
                     {label}
                </label>

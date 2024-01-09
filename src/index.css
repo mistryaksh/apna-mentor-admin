@@ -11,13 +11,19 @@
 .rdt_TableHeadRow {
      background-color: theme("backgroundColor.primary.100") !important;
      color: theme("textColor.gray.500") !important;
-     border-top-right-radius: 10px !important;
-     border-top-left-radius: 10px !important;
+     /* border-top-right-radius: 10px !important;
+     border-top-left-radius: 10px !important; */
      font-weight: theme("fontWeight.semibold");
 }
 
 .rdt_TableRow:hover {
      background: theme("backgroundColor.primary.50") !important;
+}
+
+.rdt_TableCol {
+     font-family: monospace;
+     text-transform: uppercase;
+     font-weight: 500;
 }
 
 input::-webkit-outer-spin-button,

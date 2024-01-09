@@ -2,11 +2,11 @@ import { object, string } from "yup";
 import { ISignInProps } from "../interface";
 
 export const SignInValidationValue: ISignInProps = {
-     mobile: "9892880271",
+     email: "bharatmistry@gmail.com",
      password: "abc123",
 };
 
 export const SignInSchema = object().shape({
-     mobile: string().required("Mobile number is required"),
-     password: string().required("Password is required"),
+     email: string().email("email is not valid").required("email address is required"),
+     password: string().required("password is required"),
 });

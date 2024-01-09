@@ -1,42 +1,30 @@
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 
-import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
-import { AuthReducer, BlogStateReducer, DoctorsReducer, LayoutReducer, PaymentOptionReducer } from "../features";
+import { configureStore, ThunkAction, Action, combineReducers, Middleware } from "@reduxjs/toolkit";
 import {
-     BlogMiddleware,
-     BlogReducer,
-     DoctorMiddleware,
-     DoctorReducer,
-     AuthenticationMiddleware,
-     AuthenticationReducer,
-     UsersReducer,
-     UserMiddleware,
-     PlanOptionMiddleware,
-     PlanOptionReducer,
-} from "./async-action";
+     AccountApiMiddleware,
+     AccountApiReducer,
+     CallApiMiddleware,
+     CallApiReducer,
+     MentorApiMiddleware,
+     MentorApiReducer,
+     UserApiMiddleware,
+     UserApiReducer,
+} from "./api";
+import { AccountReducer, LayoutReducer } from "./features";
 
 const rootState = combineReducers({
-     // NORMAL STATES
-     doctors: DoctorsReducer,
-     auth: AuthReducer,
+     // api
+     accountApi: AccountApiReducer,
+     mentorApi: MentorApiReducer,
+     callApi: CallApiReducer,
+     userApi: UserApiReducer,
+     // features
+     account: AccountReducer,
      layout: LayoutReducer,
-     blog: BlogStateReducer,
-     paymentOptions: PaymentOptionReducer,
-     // API CALLS
-     blogApi: BlogReducer,
-     doctorApi: DoctorReducer,
-     userApi: UsersReducer,
-     authApi: AuthenticationReducer,
-     planOptionApi: PlanOptionReducer,
 });
 
-const ApiMiddleware = [
-     AuthenticationMiddleware,
-     DoctorMiddleware,
-     BlogMiddleware,
-     UserMiddleware,
-     PlanOptionMiddleware,
-];
+const ApiMiddleware: Middleware[] = [AccountApiMiddleware, MentorApiMiddleware, CallApiMiddleware, UserApiMiddleware];
 
 export const store = configureStore({
      reducer: rootState,
@@ -48,4 +36,3 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
 setupListeners(store.dispatch);
-export * from "./async-action";

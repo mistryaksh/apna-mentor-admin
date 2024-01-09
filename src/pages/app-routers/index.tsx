@@ -8,10 +8,13 @@ import {
      ManageBlogPage,
      NewBlogPage,
      NewDoctorFormPage,
-     PaymentMargins,
      SpecificBlogPage,
      TopDoctorPage,
      UsersPage,
+     ManageCategoryPage,
+     VideoCallsPage,
+     MentorDetailsPage,
+     UserDetailsPage,
 } from "../website";
 
 export const AppRouters = () => {
@@ -19,21 +22,22 @@ export const AppRouters = () => {
           <Routes>
                <Route element={<ProtectedPages />}>
                     <Route element={<DashboardPage />} path="/dashboard" />
-                    <Route path="doctors">
+                    <Route element={<VideoCallsPage />} path="/call-logs" />
+                    <Route path="mentors">
                          <Route element={<DoctorsPage />} path="manage" />
+                         <Route element={<MentorDetailsPage />} path=":mentorId" />
                          <Route element={<NewDoctorFormPage />} path="new" />
                          <Route element={<TopDoctorPage />} path="top-lists" />
+                         <Route element={<ManageCategoryPage />} path="categories" />
                     </Route>
                     <Route path="users">
                          <Route element={<UsersPage />} path="manage" />
+                         <Route element={<UserDetailsPage />} path=":userId" />
                     </Route>
                     <Route path="blogs">
                          <Route element={<ManageBlogPage />} path="manage" />
                          <Route element={<NewBlogPage />} path="new" />
                          <Route element={<SpecificBlogPage />} path="manage/:id" />
-                    </Route>
-                    <Route path="payment">
-                         <Route element={<PaymentMargins />} path="margins" />
                     </Route>
                </Route>
                <Route path="/" element={<LoginPage />} />

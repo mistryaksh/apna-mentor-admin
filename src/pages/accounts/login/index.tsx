@@ -1,36 +1,32 @@
 import React, { useEffect } from "react";
-import { useLoginAdminMutation } from "../../../app/async-action/auth-api";
-import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../../app/hooks";
-import { AppLogin } from "../../../features";
-import { Formik } from "formik";
-import { ISignInProps } from "../../../interface";
-import { SignInSchema, SignInValidationValue } from "../../../validation";
 import { AppButton, AppInput } from "../../../component";
-import { GetTokenFromLocal } from "../../../utils";
+import { useLoginAdminAccountMutation } from "../../../app/api";
+import { ISignInProps } from "../../../interface";
+import { Formik } from "formik";
+import { SignInSchema, SignInValidationValue } from "../../../validation";
+import { useAppDispatch } from "../../../app/hooks";
+import { handleAuthentication } from "../../../app/features";
 
 export const LoginPage = () => {
-     const navigate = useNavigate();
+     const [LoginAdmin, { isError, error, isSuccess, data }] = useLoginAdminAccountMutation();
      const dispatch = useAppDispatch();
-     const token = GetTokenFromLocal();
-
-     const [loginUser, { data: loginData, isError, isLoading, isSuccess, error }] = useLoginAdminMutation();
-
-     const handleLogin = async ({ mobile, password }: ISignInProps) => {
-          await loginUser({ mobile, password });
-     };
+     const navigate = useNavigate();
 
      useEffect(() => {
+          if (isError) {
+               console.log(error);
+          }
           if (isSuccess) {
-               dispatch(AppLogin(loginData.data.token));
-               toast.success(loginData.data.message);
+               dispatch(handleAuthentication(data?.data?.token as string));
                navigate("/dashboard", { replace: true });
           }
-          if (token) {
-               navigate("/dashboard", { replace: true });
-          }
-     }, [isSuccess, dispatch, loginData, navigate, token, isError, error]);
+     }, [isError, error, isSuccess, data, dispatch, navigate]);
+
+     const Login = async ({ email, password }: ISignInProps) => {
+          console.log(email, password);
+          await LoginAdmin({ email, password });
+     };
 
      return (
           <div className="flex h-screen">
@@ -43,44 +39,38 @@ export const LoginPage = () => {
                          </Link>
                     </div>
                     <hr className="my-5" />
-                    <Formik
-                         onSubmit={handleLogin}
-                         initialValues={SignInValidationValue}
-                         validationSchema={SignInSchema}
-                    >
-                         {({ handleBlur, handleChange, handleSubmit, touched, errors, values }) => (
-                              <form onSubmit={handleSubmit} className="h-full">
+                    <Formik onSubmit={Login} initialValues={SignInValidationValue} validationSchema={SignInSchema}>
+                         {({ errors, touched, values, handleBlur, handleChange, handleSubmit }) => (
+                              <form className="h-full" onSubmit={handleSubmit}>
                                    <div className="flex flex-col gap-5 justify-between h-full items-stretch">
                                         <div className="flex gap-3 flex-col">
-                                             {/* {isError && (
+                                             {isError && (
                                                   <p className="text-rose-500 capitalize">
                                                        {(error as any).data.message}
                                                   </p>
-                                             )} */}
+                                             )}
                                              <AppInput
-                                                  maxLength={10}
-                                                  minLength={10}
-                                                  type="number"
-                                                  label="Mobile number"
-                                                  value={values.mobile}
-                                                  error={errors.mobile as string}
-                                                  touched={touched.mobile as boolean}
-                                                  onChange={handleChange("mobile")}
-                                                  onBlur={handleBlur("mobile")}
+                                                  type="email"
+                                                  label="email address"
+                                                  value={values.email}
+                                                  touched={touched.email}
+                                                  error={errors.email}
+                                                  onChange={handleChange("email")}
+                                                  onBlur={handleBlur("email")}
                                              />
                                              <AppInput
                                                   label="Password"
                                                   type="password"
                                                   value={values.password}
-                                                  error={errors.password as string}
-                                                  touched={touched.password as boolean}
+                                                  touched={touched.password}
+                                                  error={errors.password}
                                                   onChange={handleChange("password")}
                                                   onBlur={handleBlur("password")}
                                              />
                                         </div>
                                         <div>
                                              <div className="flex justify-end">
-                                                  <AppButton type="submit" primary loading={isLoading}>
+                                                  <AppButton type="submit" primary>
                                                        Login
                                                   </AppButton>
                                              </div>
