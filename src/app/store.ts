@@ -6,12 +6,14 @@ import {
      AccountApiReducer,
      CallApiMiddleware,
      CallApiReducer,
+     CategoryApiMiddleware,
+     CategoryApiReducer,
      MentorApiMiddleware,
      MentorApiReducer,
      UserApiMiddleware,
      UserApiReducer,
 } from "./api";
-import { AccountReducer, LayoutReducer } from "./features";
+import { AccountReducer, CategoryReducer, LayoutReducer } from "./features";
 
 const rootState = combineReducers({
      // api
@@ -19,12 +21,20 @@ const rootState = combineReducers({
      mentorApi: MentorApiReducer,
      callApi: CallApiReducer,
      userApi: UserApiReducer,
+     categoryApi: CategoryApiReducer,
      // features
      account: AccountReducer,
      layout: LayoutReducer,
+     category: CategoryReducer,
 });
 
-const ApiMiddleware: Middleware[] = [AccountApiMiddleware, MentorApiMiddleware, CallApiMiddleware, UserApiMiddleware];
+const ApiMiddleware: Middleware[] = [
+     AccountApiMiddleware,
+     MentorApiMiddleware,
+     CallApiMiddleware,
+     UserApiMiddleware,
+     CategoryApiMiddleware,
+];
 
 export const store = configureStore({
      reducer: rootState,

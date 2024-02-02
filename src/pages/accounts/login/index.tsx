@@ -44,11 +44,11 @@ export const LoginPage = () => {
                               <form className="h-full" onSubmit={handleSubmit}>
                                    <div className="flex flex-col gap-5 justify-between h-full items-stretch">
                                         <div className="flex gap-3 flex-col">
-                                             {isError && (
+                                             {/* {isError ? (
                                                   <p className="text-rose-500 capitalize">
                                                        {(error as any).data.message}
                                                   </p>
-                                             )}
+                                             ) : null} */}
                                              <AppInput
                                                   type="email"
                                                   label="email address"

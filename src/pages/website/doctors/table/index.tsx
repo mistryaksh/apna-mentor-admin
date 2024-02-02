@@ -9,8 +9,10 @@ import { MdOutlineVerified } from "react-icons/md";
 import { FaDotCircle } from "react-icons/fa";
 import { MdOutlineBlock } from "react-icons/md";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export const DoctorsPage = () => {
+     const navigate = useNavigate();
      const {
           data: mentors,
           isError: isMentorError,
@@ -28,8 +30,13 @@ export const DoctorsPage = () => {
                <PageTitle title="Mentor List" subTitle="You can manage mentors lists from here" />
                <div className="p-3 mb-5">
                     <div className="flex items-center gap-5 justify-end">
+                         <AppButton primary onClick={() => navigate("/mentors/new")}>
+                              New Mentors
+                         </AppButton>
                          <p>Total Mentors - {mentors?.data.length}</p>
-                         <AppButton primary>Categories</AppButton>
+                         <AppButton primary onClick={() => navigate("/mentors/categories")}>
+                              Categories
+                         </AppButton>
                          <AppButton primary>Sub Categories</AppButton>
                     </div>
                </div>

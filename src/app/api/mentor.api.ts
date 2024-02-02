@@ -12,6 +12,17 @@ const MentorApi = createApi({
           GetMentorById: query<{ data: IMentorProps }, string>({
                query: (id: string) => `/mentor/profile/${id}`,
           }),
+          CreateNewMentor: mutation<{ data: string }, IMentorProps>({
+               query: (payload) => {
+                    return {
+                         url: "/mentor/sign-up",
+                         body: {
+                              ...payload,
+                         },
+                         method: "POST",
+                    };
+               },
+          }),
      }),
 });
 
