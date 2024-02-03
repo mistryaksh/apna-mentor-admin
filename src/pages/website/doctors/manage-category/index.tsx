@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout } from "../../../../layout";
-import { useGetAllCategoryQuery } from "../../../../app/api";
+import { useLazyGetAllCategoryQuery, useCreateNewCategoryMutation, useDeleteCategoryByIdMutation } from "../../../../app/api";
 import { AppButton, AppInput, PageTitle } from "../../../../component";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useAppDispatch } from "../../../../app/hooks";
@@ -8,20 +8,67 @@ import { handleNewCategoryModel, useCategorySlice } from "../../../../app/featur
 import { Formik } from "formik";
 import { CategoryValidationSchema, initialCategoryValues } from "../../../../validation";
 import { ICategoryProps } from "../../../../interface";
+import { toast } from "react-toastify";
 
 export const ManageCategoryPage = () => {
-     const {
+     const [GetAllCategory, {
           data: category,
           isError: isCategoryError,
           error: categoryError,
           isLoading: isCategoryLoading,
-     } = useGetAllCategoryQuery();
+     }] = useLazyGetAllCategoryQuery();
+     const [
+          NewCategory,
+          {
+               data: newCategoryData,
+               isError: isNewCategoryError,
+               error: newCategoryError,
+               isSuccess: isNewCategorySuccess,
+               isLoading: isNewCategoryLoading,
+          }
+     ] = useCreateNewCategoryMutation();
+     const [
+          DeleteCategoryById, 
+          { 
+               isError: isDeleteCategoryError,
+               error: deleteCategoryError,
+               isLoading: isDeleteCategoryLoading,
+               data: deleteCategoryData,
+               isSuccess: isDeleteCategorySuccess,
+          }
+     ] = useDeleteCategoryByIdMutation();
      const { newModel } = useCategorySlice();
      const dispatch = useAppDispatch();
 
-     const onSubmitHandle = ({ status, title }: ICategoryProps) => {
-          console.log(status, title);
+     const onSubmitHandle = async ({ status, title }: ICategoryProps) => {
+          await NewCategory({
+               status, title,
+               _id: ""
+          });
+          dispatch(handleNewCategoryModel({ newModel: false } as any));
+          toast.success("Category created successfully", newCategoryData);
      };
+
+     const DeleteAction = async (id: string) => {
+          await DeleteCategoryById(id);
+          dispatch(handleNewCategoryModel({ newModel: false } as any));
+          toast.success("Category deleted successfully", deleteCategoryData);
+     };
+
+     useEffect(() => {
+          if (isCategoryError) {
+               console.log(categoryError);
+          }
+          if (isNewCategoryError) {
+               console.log(categoryError);
+          }
+          if (isDeleteCategoryError) {
+               console.log(deleteCategoryError);
+          }
+          (async () => {
+               await GetAllCategory();
+          })();
+     }, [newCategoryData, isNewCategoryError, newCategoryError, isNewCategoryLoading, isCategoryLoading, isCategoryError, categoryError, isNewCategorySuccess, dispatch, category?.data, category?.data?.length, isDeleteCategoryError, deleteCategoryError, isDeleteCategorySuccess, deleteCategoryData, GetAllCategory])
 
      return (
           <Layout pageTitle="Manage Category">
@@ -31,20 +78,21 @@ export const ManageCategoryPage = () => {
                          subTitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, distinctio."
                     />
                </div>
-               <div className="flex justify-end items-center">
-                    <AppButton primary onClick={() => dispatch(handleNewCategoryModel())}>
+               <div className="flex justify-end items-center mb-8">
+                    <AppButton primary onClick={() => dispatch(handleNewCategoryModel({ newModel: true } as any))}>
                          Add new
                     </AppButton>
                </div>
-               {category?.data.length !== 0 && (
+               {category?.data.length !== 0 && !isCategoryLoading && (
                     <div className="grid xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                         {category?.data.map(({ status, title }, i) => (
+                         {category?.data.map(({ status, title, _id }, i) => (
                               <div key={i} className="border p-3 hover:shadow-xl rounded-xl">
                                    <h6 className="text-2xl text-gray-900 capitalize">{title}</h6>
                                    <p className="text-gray-500">currently {status ? "active" : "in active"}</p>
                                    <div className="flex gap-5 justify-end my-3">
-                                        <AiOutlineDelete size={22} />
-                                        <AiOutlineEdit size={22} />
+                                        <button type="button" onClick={() => DeleteAction(_id as string)} className="text-gray-500 hover:text-primary-500 duration-150">
+                                             <AiOutlineDelete size={22} />
+                                        </button>
                                    </div>
                               </div>
                          ))}
@@ -104,7 +152,7 @@ export const ManageCategoryPage = () => {
                                                             <button
                                                                  className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                                  type="button"
-                                                                 onClick={() => dispatch(handleNewCategoryModel())}
+                                                                 onClick={() => dispatch(handleNewCategoryModel({ newModel: false } as any))}
                                                             >
                                                                  Close
                                                             </button>

@@ -23,9 +23,18 @@ const MentorApi = createApi({
                     };
                },
           }),
+          UpdateMentorById: mutation<{ data: string }, { mentorId: string; payload: any }>({
+               query: ({ payload, mentorId }) => {
+                    return {
+                         url: `/mentor/update/${mentorId}`,
+                         method: "PUT",
+                         body: { ...payload },
+                    };
+               },
+          }),
      }),
 });
 
 export const MentorApiReducer = MentorApi.reducer;
 export const MentorApiMiddleware = MentorApi.middleware;
-export const { useGetAllMentorQuery, useLazyGetMentorByIdQuery } = MentorApi;
+export const { useGetAllMentorQuery, useLazyGetMentorByIdQuery, useCreateNewMentorMutation, useUpdateMentorByIdMutation } = MentorApi;

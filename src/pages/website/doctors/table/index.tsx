@@ -3,10 +3,9 @@ import { Layout } from "../../../../layout";
 import { useGetAllMentorQuery } from "../../../../app/api";
 import { AppButton, PageTitle } from "../../../../component";
 import DataTable from "react-data-table-component";
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineLoading, AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineLoading, AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import clsx from "clsx";
 import { MdOutlineVerified } from "react-icons/md";
-import { FaDotCircle } from "react-icons/fa";
 import { MdOutlineBlock } from "react-icons/md";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +23,8 @@ export const DoctorsPage = () => {
           if (isMentorError) {
                console.log(mentorError);
           }
-     }, [isMentorError, mentorError]);
+     }, [isMentorError, mentorError, mentors?.data]);
+
      return (
           <Layout pageTitle="Manage doctors">
                <PageTitle title="Mentor List" subTitle="You can manage mentors lists from here" />
@@ -37,7 +37,7 @@ export const DoctorsPage = () => {
                          <AppButton primary onClick={() => navigate("/mentors/categories")}>
                               Categories
                          </AppButton>
-                         <AppButton primary>Sub Categories</AppButton>
+                         <AppButton primary onClick={() => navigate("/mentors/subcategories")}>Sub Categories</AppButton>
                     </div>
                </div>
                {isMentorFetching && (
@@ -130,7 +130,7 @@ export const DoctorsPage = () => {
                               {
                                    id: "#",
                                    name: "Specialists",
-                                   width: "200px",
+                                   width: "180px",
                                    cell: ({ specialists }) => (
                                         <div>
                                              <p className="capitalize text-gray-500">{specialists.join(", ")}</p>
@@ -140,8 +140,8 @@ export const DoctorsPage = () => {
                               {
                                    id: "#",
                                    name: "Status",
-                                   width: "280px",
-                                   cell: ({ accountStatus }) => (
+                                   width: "90px",
+                                   cell: ({ _id, accountStatus }) => (
                                         <div className="flex gap-5 items-center">
                                              <MdOutlineBlock
                                                   size={25}
@@ -155,9 +155,17 @@ export const DoctorsPage = () => {
                                                        accountStatus.verification ? "text-green-500" : "text-gray-500"
                                                   )}
                                              />
-
-                                             <AiOutlineEdit size={25} className="text-gray-500" />
-                                             <AiOutlineDelete size={25} className="text-gray-500" />
+                                        </div>
+                                   ),
+                              },
+                              {
+                                   id: "#",
+                                   name: "Actions",
+                                   cell: ({ _id }) => (
+                                        <div className="flex gap-5 items-center">
+                                             <AppButton primary onClick={() => navigate(`/mentors/${_id}`)}>
+                                                  <AiOutlineEdit size={25} className="text-white" />
+                                             </AppButton>
                                         </div>
                                    ),
                               },

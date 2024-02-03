@@ -14,7 +14,7 @@ const CategorySlice = createSlice({
      name: "category",
      reducers: {
           handleNewCategoryModel: (state) => {
-               state.newModel = !state.newModel;
+               state.newModel = state.newModel as boolean ? false : true;
           },
      },
 });

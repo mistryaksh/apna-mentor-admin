@@ -35,12 +35,13 @@ export interface IMentorProps {
 }
 
 export interface ICategoryProps {
+     _id: string;
      title: string;
-
      status: boolean;
 }
 
 export interface ISubCategoryProps {
+     _id: string;
      label: string;
      categoryId: any;
      subTitle: string;

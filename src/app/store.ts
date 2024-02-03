@@ -4,6 +4,8 @@ import { configureStore, ThunkAction, Action, combineReducers, Middleware } from
 import {
      AccountApiMiddleware,
      AccountApiReducer,
+     BlogApiMiddleware,
+     BlogApiReducer,
      CallApiMiddleware,
      CallApiReducer,
      CategoryApiMiddleware,
@@ -13,7 +15,7 @@ import {
      UserApiMiddleware,
      UserApiReducer,
 } from "./api";
-import { AccountReducer, CategoryReducer, LayoutReducer } from "./features";
+import { AccountReducer, CategoryReducer, LayoutReducer, MentorReducer, BlogReducer } from "./features";
 
 const rootState = combineReducers({
      // api
@@ -22,10 +24,13 @@ const rootState = combineReducers({
      callApi: CallApiReducer,
      userApi: UserApiReducer,
      categoryApi: CategoryApiReducer,
+     blogApi: BlogApiReducer,
      // features
      account: AccountReducer,
      layout: LayoutReducer,
      category: CategoryReducer,
+     mentor: MentorReducer,
+     blog: BlogReducer,
 });
 
 const ApiMiddleware: Middleware[] = [
@@ -34,6 +39,7 @@ const ApiMiddleware: Middleware[] = [
      CallApiMiddleware,
      UserApiMiddleware,
      CategoryApiMiddleware,
+     BlogApiMiddleware
 ];
 
 export const store = configureStore({

@@ -15,6 +15,7 @@ import {
      VideoCallsPage,
      MentorDetailsPage,
      UserDetailsPage,
+     ManageSubCategoryPage
 } from "../website";
 
 export const AppRouters = () => {
@@ -29,6 +30,7 @@ export const AppRouters = () => {
                          <Route element={<NewDoctorFormPage />} path="new" />
                          <Route element={<TopDoctorPage />} path="top-lists" />
                          <Route element={<ManageCategoryPage />} path="categories" />
+                         <Route element={<ManageSubCategoryPage />} path="subcategories" />
                     </Route>
                     <Route path="users">
                          <Route element={<UsersPage />} path="manage" />
