@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import { toast } from "react-toastify";
@@ -6,18 +6,19 @@ import { toast } from "react-toastify";
 import {
      useLazyGetAllCategoryQuery,
      useCreateNewMentorMutation,
+     useLazyGetAllSubCategoryQuery,
 } from "../../../../app/api";
 import { initialMentorValues, MentorValidationSchema } from "../../../../validation";
 import { Layout } from "../../../../layout";
 import { AppInput, AppButton } from "../../../../component/ui";
+import { IMentorProps } from "../../../../interface";
 
 export const NewDoctorFormPage = () => {
-     const [GetAllCategory, {
-          isError: isCategoryError,
-          error: categoryError,
-          isLoading: isCategoryLoading,
-          data: categoryData,
-     }] = useLazyGetAllCategoryQuery();
+     const [
+          GetAllCategory,
+          { isError: isCategoryError, error: categoryError, isLoading: isCategoryLoading, data: categoryData },
+     ] = useLazyGetAllCategoryQuery();
+     const [GetAllSubCategory, { isError, error, data, isLoading }] = useLazyGetAllSubCategoryQuery();
      const [
           NewMentor,
           { isError: isNewMentorError, error: newMentorError, data: newMentorData, isSuccess: isNewMentorSuccess },
@@ -32,14 +33,32 @@ export const NewDoctorFormPage = () => {
           if (isNewMentorError) {
                console.log(newMentorError);
           }
+          if (isError) {
+               console.log(error);
+          }
           if (isNewMentorSuccess) {
                toast.success(newMentorData?.data);
                navigate("/mentors/manage", { replace: true });
           }
           (async () => {
                await GetAllCategory();
+               await GetAllSubCategory();
           })();
-     }, [isCategoryError, categoryError, isCategoryLoading, categoryData?.data, isNewMentorError, newMentorError, newMentorData?.data, isNewMentorSuccess, navigate, GetAllCategory]); 
+     }, [
+          isCategoryError,
+          categoryError,
+          isCategoryLoading,
+          categoryData?.data,
+          isNewMentorError,
+          newMentorError,
+          newMentorData?.data,
+          isNewMentorSuccess,
+          navigate,
+          GetAllCategory,
+          GetAllSubCategory,
+          isError,
+          error,
+     ]);
 
      const handleSubmit = async (e: any) => {
           console.log("🚀 ~ handleSubmit ~ e:", e);
@@ -62,8 +81,7 @@ export const NewDoctorFormPage = () => {
                subCategory: e.subCategory as any,
           };
 
-          
-          await NewMentor({ ...mentorDetails as any });
+          await NewMentor({ ...(mentorDetails as any) });
      };
      return (
           <Layout pageTitle="New Mentor">
@@ -76,10 +94,23 @@ export const NewDoctorFormPage = () => {
                </div>
                {!isCategoryLoading && (
                     <Formik
-                    onSubmit={handleSubmit}
-                    initialValues={initialMentorValues}
-                    enableReinitialize
-                    validationSchema={MentorValidationSchema}
+                         onSubmit={(e) => {
+                              handleSubmit(e);
+                         }}
+                         initialValues={{
+                              username: "",
+                              password: "",
+                              mobile: "",
+                              email: "",
+                              specialists: "",
+                              subCategory: "none",
+                              firstName: "",
+                              lastName: "",
+                              address: "",
+                              category: "none",
+                         }}
+                         enableReinitialize
+                         validationSchema={MentorValidationSchema}
                     >
                          {({ handleBlur, handleChange, handleSubmit, values, touched, errors }) => (
                               <form onSubmit={handleSubmit}>
@@ -87,21 +118,21 @@ export const NewDoctorFormPage = () => {
                                         <div className="flex-1">
                                              <AppInput
                                                   label="First name"
-                                                  value={values.name.firstName}
-                                                  onChange={handleChange("name.firstName")}
-                                                  onBlur={handleBlur("name.firstName")}
-                                                  touched={touched?.name?.firstName as boolean}
-                                                  error={errors?.name?.firstName as string}
+                                                  value={values.firstName}
+                                                  onChange={handleChange("firstName")}
+                                                  onBlur={handleBlur("firstName")}
+                                                  touched={touched?.firstName}
+                                                  error={errors?.firstName as string}
                                              />
                                         </div>
                                         <div className="flex-1">
                                              <AppInput
                                                   label="Last name"
-                                                  value={values.name.lastName}
-                                                  onChange={handleChange("name.lastName")}
-                                                  onBlur={handleBlur("name.lastName")}
-                                                  touched={touched?.name?.lastName as boolean}
-                                                  error={errors?.name?.lastName as string}
+                                                  value={values.lastName}
+                                                  onChange={handleChange("lastName")}
+                                                  onBlur={handleBlur("lastName")}
+                                                  touched={touched.lastName as boolean}
+                                                  error={errors.lastName as string}
                                              />
                                         </div>
                                    </div>
@@ -109,31 +140,31 @@ export const NewDoctorFormPage = () => {
                                         <div className="flex-1">
                                              <AppInput
                                                   label="Mobile number"
-                                                  value={values.contact.mobile}
-                                                  onChange={handleChange("contact.mobile")}
-                                                  onBlur={handleBlur("contact.mobile")}
-                                                  touched={touched?.contact?.mobile as boolean}
-                                                  error={errors?.contact?.mobile as string}
+                                                  value={values.mobile}
+                                                  onChange={handleChange("mobile")}
+                                                  onBlur={handleBlur("mobile")}
+                                                  touched={touched?.mobile as boolean}
+                                                  error={errors?.mobile as string}
                                              />
                                         </div>
                                         <div className="flex-1">
                                              <AppInput
                                                   label="Email address"
-                                                  value={values.contact.email}
-                                                  onChange={handleChange("contact.email")}
-                                                  onBlur={handleBlur("contact.email")}
-                                                  touched={touched?.contact?.email as boolean}
-                                                  error={errors?.contact?.email as string}
+                                                  value={values.email}
+                                                  onChange={handleChange("email")}
+                                                  onBlur={handleBlur("email")}
+                                                  touched={touched.email as boolean}
+                                                  error={errors.email as string}
                                              />
                                         </div>
                                         <div className="flex-1">
                                              <AppInput
                                                   label="Address"
-                                                  value={values.contact.address}
-                                                  onChange={handleChange("contact.address")}
-                                                  onBlur={handleBlur("contact.address")}
-                                                  touched={touched?.contact?.address as boolean}
-                                                  error={errors?.contact?.address as string}
+                                                  value={values.address}
+                                                  onChange={handleChange("address")}
+                                                  onBlur={handleBlur("address")}
+                                                  touched={touched?.address as boolean}
+                                                  error={errors?.address as string}
                                              />
                                         </div>
                                    </div>
@@ -152,34 +183,63 @@ export const NewDoctorFormPage = () => {
                                                        Select category
                                                   </option>
                                                   {categoryData?.data.map((category) => (
-                                                  <option
-                                                       defaultValue={category?._id}
-                                                       value={category?._id}
-                                                       key={category?._id}
-                                                  >
-                                                       {category.title}
-                                                  </option>
+                                                       <option value={category?._id} key={category?._id}>
+                                                            {category.title}
+                                                       </option>
                                                   ))}
                                              </select>
                                         </div>
                                         <div className="flex-1">
+                                             <label htmlFor="category" className="capitalize text-gray-500 text-sm">
+                                                  Sub Category
+                                             </label>
+                                             <select
+                                                  onChange={handleChange("subCategory")}
+                                                  onBlur={handleBlur("subCategory")}
+                                                  value={values.subCategory as any}
+                                                  className="p-3 w-full border focus:border-teacher-500 rounded-md focus:outline-none"
+                                             >
+                                                  <option defaultValue={"none"} disabled selected>
+                                                       Select category
+                                                  </option>
+                                                  {data?.data.map(({ categoryId, _id, label }) => (
+                                                       <option value={_id} key={_id}>
+                                                            {label} - {categoryId.title}
+                                                       </option>
+                                                  ))}
+                                             </select>
+                                        </div>
+                                   </div>
+                                   <div className="mt-3 flex items-center gap-5">
+                                        <div className="flex-1">
                                              <AppInput
-                                                  label="Userame"
-                                                  value={values.auth.username}
-                                                  onChange={handleChange("auth.username")}
-                                                  onBlur={handleBlur("auth.username")}
-                                                  touched={touched?.auth?.username}
-                                                  error={errors?.auth?.username}
+                                                  label="Spealists"
+                                                  value={values.specialists}
+                                                  onChange={handleChange("specialists")}
+                                                  onBlur={handleBlur("specialists")}
+                                                  touched={touched.specialists}
+                                                  error={errors.specialists}
                                              />
                                         </div>
                                         <div className="flex-1">
                                              <AppInput
+                                                  label="Userame"
+                                                  value={values.username}
+                                                  onChange={handleChange("username")}
+                                                  onBlur={handleBlur("username")}
+                                                  touched={touched.username}
+                                                  error={errors.username}
+                                             />
+                                        </div>
+                                   </div>
+                                   <div className="mt-3">
+                                        <div className="flex-1">
+                                             <AppInput
                                                   label="Password"
-                                                  value={values.auth.password}
-                                                  onChange={handleChange("auth.password")}
-                                                  onBlur={handleBlur("auth.password")}
-                                                  touched={touched?.auth?.password}
-                                                  error={errors?.auth?.password}
+                                                  value={values.password}
+                                                  onChange={handleChange("password")}
+                                                  onBlur={handleBlur("password")}
+                                                  touched={touched.password}
                                              />
                                         </div>
                                    </div>

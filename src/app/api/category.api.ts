@@ -56,7 +56,7 @@ const CategoryApi = createApi({
           DeleteSubCategoryById: mutation<{ data: string }, string>({
                query: (subCategoryId) => {
                     return {
-                         url: `/sub-category/${subCategoryId}`,                         
+                         url: `/sub-category/${subCategoryId}`,
                          method: "DELETE",
                     };
                },
@@ -66,4 +66,15 @@ const CategoryApi = createApi({
 
 export const CategoryApiReducer = CategoryApi.reducer;
 export const CategoryApiMiddleware = CategoryApi.middleware;
-export const { useLazyGetAllCategoryQuery, useGetCategoryByIdQuery, useLazyGetCategoryByIdQuery, useCreateNewCategoryMutation, useDeleteCategoryByIdMutation, useGetAllSubCategoryQuery, useGetSubCategoryByIdQuery, useCreateNewSubCategoryMutation, useDeleteSubCategoryByIdMutation } = CategoryApi;
+export const {
+     useLazyGetAllCategoryQuery,
+     useGetCategoryByIdQuery,
+     useLazyGetCategoryByIdQuery,
+     useCreateNewCategoryMutation,
+     useDeleteCategoryByIdMutation,
+     useGetAllSubCategoryQuery,
+     useGetSubCategoryByIdQuery,
+     useCreateNewSubCategoryMutation,
+     useDeleteSubCategoryByIdMutation,
+     useLazyGetAllSubCategoryQuery,
+} = CategoryApi;
