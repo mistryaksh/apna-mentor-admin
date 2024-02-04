@@ -8,17 +8,16 @@ import {
      useCreateNewMentorMutation,
      useLazyGetAllSubCategoryQuery,
 } from "../../../../app/api";
-import { initialMentorValues, MentorValidationSchema } from "../../../../validation";
+import { MentorValidationSchema } from "../../../../validation";
 import { Layout } from "../../../../layout";
 import { AppInput, AppButton } from "../../../../component/ui";
-import { IMentorProps } from "../../../../interface";
 
 export const NewDoctorFormPage = () => {
      const [
           GetAllCategory,
           { isError: isCategoryError, error: categoryError, isLoading: isCategoryLoading, data: categoryData },
      ] = useLazyGetAllCategoryQuery();
-     const [GetAllSubCategory, { isError, error, data, isLoading }] = useLazyGetAllSubCategoryQuery();
+     const [GetAllSubCategory, { isError, error, data }] = useLazyGetAllSubCategoryQuery();
      const [
           NewMentor,
           { isError: isNewMentorError, error: newMentorError, data: newMentorData, isSuccess: isNewMentorSuccess },
@@ -94,9 +93,7 @@ export const NewDoctorFormPage = () => {
                </div>
                {!isCategoryLoading && (
                     <Formik
-                         onSubmit={(e) => {
-                              handleSubmit(e);
-                         }}
+                         onSubmit={handleSubmit}
                          initialValues={{
                               username: "",
                               password: "",
@@ -188,6 +185,11 @@ export const NewDoctorFormPage = () => {
                                                        </option>
                                                   ))}
                                              </select>
+                                             {touched.category && (
+                                                  <p className="text-right text-xs capitalize text-rose-500">
+                                                       {errors.category}
+                                                  </p>
+                                             )}
                                         </div>
                                         <div className="flex-1">
                                              <label htmlFor="category" className="capitalize text-gray-500 text-sm">
@@ -208,6 +210,11 @@ export const NewDoctorFormPage = () => {
                                                        </option>
                                                   ))}
                                              </select>
+                                             {touched.subCategory && (
+                                                  <p className="text-right text-xs capitalize text-rose-500">
+                                                       {errors.subCategory}
+                                                  </p>
+                                             )}
                                         </div>
                                    </div>
                                    <div className="mt-3 flex items-center gap-5">
@@ -241,6 +248,11 @@ export const NewDoctorFormPage = () => {
                                                   onBlur={handleBlur("password")}
                                                   touched={touched.password}
                                              />
+                                             {touched.password && (
+                                                  <p className="text-right text-xs capitalize text-rose-500">
+                                                       {errors.password}
+                                                  </p>
+                                             )}
                                         </div>
                                    </div>
                                    <div className="flex justify-end mt-5">

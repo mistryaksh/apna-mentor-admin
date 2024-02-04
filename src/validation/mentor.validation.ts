@@ -1,4 +1,4 @@
-import { array, object, string } from "yup";
+import { object, string } from "yup";
 import { IMentorProps } from "../interface";
 
 export const initialMentorValues: IMentorProps = {
