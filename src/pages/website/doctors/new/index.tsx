@@ -60,7 +60,6 @@ export const NewDoctorFormPage = () => {
      ]);
 
      const handleSubmit = async (e: any) => {
-          console.log("🚀 ~ handleSubmit ~ e:", e);
           const mentorDetails = {
                auth: {
                     username: e.username,
@@ -75,9 +74,9 @@ export const NewDoctorFormPage = () => {
                     firstName: e.firstName,
                     lastName: e.lastName,
                },
-               category: e.category as any,
+               category: e.category as string,
                specialists: [],
-               subCategory: e.subCategory as any,
+               subCategory: e.subCategory as string,
           };
 
           await NewMentor({ ...(mentorDetails as any) });
@@ -175,8 +174,9 @@ export const NewDoctorFormPage = () => {
                                                   onBlur={handleBlur("category")}
                                                   value={values.category as any}
                                                   className="p-3 w-full border focus:border-teacher-500 rounded-md focus:outline-none"
+                                                  required
                                              >
-                                                  <option defaultValue={"none"} disabled selected>
+                                                  <option defaultValue="none" disabled selected>
                                                        Select category
                                                   </option>
                                                   {categoryData?.data.map((category) => (
@@ -200,8 +200,9 @@ export const NewDoctorFormPage = () => {
                                                   onBlur={handleBlur("subCategory")}
                                                   value={values.subCategory as any}
                                                   className="p-3 w-full border focus:border-teacher-500 rounded-md focus:outline-none"
+                                                  required
                                              >
-                                                  <option defaultValue={"none"} disabled selected>
+                                                  <option defaultValue="none" disabled selected>
                                                        Select category
                                                   </option>
                                                   {data?.data.map(({ categoryId, _id, label }) => (
