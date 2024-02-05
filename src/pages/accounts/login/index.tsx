@@ -90,14 +90,13 @@ export const LoginPage = () => {
                <div className="flex-1  p-3 bg-gradient-to-tr from-brandPrimary-100 to-brandSecondary-100 flex flex-col justify-center items-center">
                     <div className="flex items-center justify-center">
                          <img
-                              src={require("../../../assets/image/apna-mentor.jpeg")}
+                              src={require("../../../assets/image/logo.png")}
                               alt="website_logo"
                               className="w-[80%] rounded-lg"
                          />
                     </div>
                     <h6 className="text-3xl font-poppins text-center py-3">
-                         <span className="text-brandPrimary-500 font-semibold">Apna</span>{" "}
-                         <span className="text-brandSecondary-500 font-semibold">Mentor</span>
+                         <span className="text-brandSecondary-500 font-semibold">AlterBuddy</span>{" "}
                          <span>Administration Service</span>
                     </h6>
                </div>
