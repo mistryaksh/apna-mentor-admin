@@ -2,22 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useAppSelector } from "../hooks";
 
 interface BlogSliceProps {
-    newModel: boolean;
+  newModel: boolean;
 }
 
 const initialState: BlogSliceProps = {
-    newModel: false,
+  newModel: false,
 };
 
 const BlogSlice = createSlice({
-    initialState,
-    name: "blog",
-    reducers: {},
+  initialState,
+  name: "blog",
+  reducers: {},
 });
 
 export const BlogReducer = BlogSlice.reducer;
 export const useBlogSlice = () =>
-    useAppSelector((state) => {
-        return state.blog;
-    });
-export const {} = BlogSlice.actions;
+  useAppSelector((state) => {
+    return state.blog;
+  });
+// export const {} = BlogSlice.actions;

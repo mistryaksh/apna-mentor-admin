@@ -1,52 +1,47 @@
 interface IMentorNameProps {
-     firstName: string;
-     lastName: string;
+  firstName: string;
+  lastName: string;
 }
 
 interface IMentorContactProps {
-     email: string;
-     mobile: string;
-     address: string;
+  email: string;
+  mobile: string;
+  address: string;
 }
 
 export interface IMentorAuthProps {
-     username: string;
-     password: string;
+  username: string;
+  password: string;
 }
 
 interface IMentorAccountStatus {
-     verification: boolean;
-     block: boolean;
-     online: boolean;
+  verification: boolean;
+  block: boolean;
+  online: boolean;
 }
 
 export interface IMentorProps {
-     name: IMentorNameProps;
-     contact: IMentorContactProps;
-     auth: IMentorAuthProps;
-     category: ICategoryProps;
-     specialists: string[];
-     accountStatus: IMentorAccountStatus;
-     acType: "MENTOR";
-     subCategory: any[];
-     _id?: string;
-     createdAt?: string;
-     updatedAt?: string;
+  name: IMentorNameProps;
+  contact: IMentorContactProps;
+  auth: IMentorAuthProps;
+  category: string[] | ICategoryProps[];
+  specialists: string[];
+  accountStatus: IMentorAccountStatus;
+  acType: "MENTOR";
+  inCall?: boolean;
+  videoLink?: string;
+  description?: string;
+  image: string;
+  languages: string[];
+  status: boolean;
+  qualification: string;
+  createdAt?: string;
+  _id?: string;
 }
 
 export interface ICategoryProps {
-     _id: string;
-     title: string;
-     status: boolean;
-}
-
-export interface ISubCategoryProps {
-     _id: string;
-     label: string;
-     categoryId: any;
-     subTitle: string;
-     desc: string;
-     symptoms: string[];
-     causes: string[];
-     treatment: string[];
+  _id?: string;
+  title: string;
+  status: boolean;
+  createdAt?: string;
 }

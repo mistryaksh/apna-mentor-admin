@@ -3,16 +3,19 @@ import { baseQuery } from "../../utils";
 import { IUserProps } from "../../interface/user.interface";
 
 const UserApi = createApi({
-     baseQuery: fetchBaseQuery(baseQuery),
-     reducerPath: "userApi",
-     endpoints: ({ query }) => ({
-          GetAllUser: query<{ data: IUserProps[] }, void>({
-               query: () => `/website/users`,
-          }),
-          GetUserById: query<{ data: IUserProps }, string>({
-               query: (id: string) => `/website/users/${id}`,
-          }),
-     }),
+  baseQuery: fetchBaseQuery(baseQuery),
+  reducerPath: "userApi",
+  tagTypes: ["userApi"],
+  endpoints: ({ query }) => ({
+    GetAllUser: query<{ data: IUserProps[] }, void>({
+      query: () => `/website/users`,
+      providesTags: ["userApi"],
+    }),
+    GetUserById: query<{ data: IUserProps }, string>({
+      query: (id: string) => `/website/users/${id}`,
+      providesTags: ["userApi"],
+    }),
+  }),
 });
 
 export const UserApiReducer = UserApi.reducer;
